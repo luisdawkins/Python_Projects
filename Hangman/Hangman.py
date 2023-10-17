@@ -3,6 +3,23 @@ Author: Luis Dawkins
 Date: 9/23/23
 This program runs the famous hangman game for a user.
 
+1. Input
+    Retrieve secret word from list
+    test for errors
+    Format secret word
+2. Processing
+    Set up graphical interface for user
+    Initialize key variables for main computations
+    Test guessed character
+    Respond according to Hangman rules and logic
+    Decide if game was won or lost
+    Offer to play again
+3. Output
+    Display results of game in command prompt
+    Display results in a text file including secret word
+4. Execute
+    Actiavte all necessary code and functions
+    
 """
 
 import random
@@ -16,6 +33,11 @@ def Get_Word():
         print("There was an error with selecting a word.")
     else:
         return Word.upper()
+
+def Outputing_Results(Answer):
+    File = open("Winner.txt", "w")
+    File.write(f"Congrats you won. Your word was {Answer}")
+    File.close()
 
 #Main computations
 def Play(Word):
@@ -34,6 +56,7 @@ def Play(Word):
     #Guessing section of Hangman
     while not Guessed and Tries > 0:
         Guess = input("Please guess a letter or word: ").upper()
+        #Handle already guessed letters and successful valid inputs
         if len(Guess) == 1 and Guess.isalpha():
             if Guess in Guessed_Letters:
                 print("You already guessed the letter", Guess)
@@ -51,6 +74,7 @@ def Play(Word):
                 Word_Completion = "".join(Word_as_List)
                 if "_" not in Word_Completion:
                     Guessed = True
+        #Handle already guessed letters and invalid inputs           
         elif len(Guess) == len(Word) and Guess.isalpha():
             if Guess in Guessed_Words:
                 print("You already guessed the word", Guess)
@@ -63,11 +87,14 @@ def Play(Word):
                 Word_Completion = Word
         else:
             print("Not a valid guess.")
+        
+        #Update graphical user interface according to the game results
         print(Display_Hangman(Tries))
         print(Word_Completion)
         print("\n")
     if Guessed:
         print("Congrats, you guessed the word! You win!")
+        Outputing_Results(Word)
     else:
         print("Sorry, you ran out of tries. The word was " + Word + ". Maybe next time!")
 
@@ -146,6 +173,7 @@ def Display_Hangman(Tries):
     ]
     return Stages[Tries]
 
+#Main script to execute all code
 def Main():
     Word = Get_Word()
     Play(Word)
