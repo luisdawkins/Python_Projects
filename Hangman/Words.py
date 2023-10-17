@@ -1,4 +1,4 @@
-word_list = [
+Word_List = [
     'wares',
     'soup',
     'mount',
