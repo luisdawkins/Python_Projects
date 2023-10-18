@@ -19,7 +19,7 @@ This program runs the famous hangman game for a user.
     Display results in a text file including secret word
 4. Execute
     Actiavte all necessary code and functions
-    
+
 """
 
 import random
@@ -74,11 +74,12 @@ def Play(Word):
                 Word_Completion = "".join(Word_as_List)
                 if "_" not in Word_Completion:
                     Guessed = True
-        #Handle already guessed letters and invalid inputs           
+
+        #Handle guessing the whole word
         elif len(Guess) == len(Word) and Guess.isalpha():
             if Guess in Guessed_Words:
                 print("You already guessed the word", Guess)
-            elif Guess != word:
+            elif Guess != Word:
                 print(Guess, "is not the word.")
                 Tries -= 1
                 Guessed_Words.append(Guess)
@@ -87,11 +88,12 @@ def Play(Word):
                 Word_Completion = Word
         else:
             print("Not a valid guess.")
-        
+
         #Update graphical user interface according to the game results
         print(Display_Hangman(Tries))
         print(Word_Completion)
         print("\n")
+
     if Guessed:
         print("Congrats, you guessed the word! You win!")
         Outputing_Results(Word)
@@ -180,7 +182,6 @@ def Main():
     while input("Play Again? (Y/N) ").upper() == "Y":
         Word = Get_Word()
         Play(Word)
-
 
 if __name__ == "__main__":
     Main()
