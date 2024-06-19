@@ -22,31 +22,35 @@ Significant Constants
     Determine Data sharing output, default is print statement
 
 Assignments:
-Add option menu similar to traditional terminal menu, such as SEToolkit in linux
-Complete a Final output message template for output message
 
 Notes:
     Use Try and Except block to handle default variables for user input.
 
 """
-"""
+
+### Significant Constants
 text = 'mrttaqrhknsw ih puggrur'
 custom_key = 'happycoding'
 Encryption_Tool = "Luna"
-"""
 
+### Input
 def User_Interface():
 
     Option_Menu = """
-    1. Encrypt
-    2. Decrypt
-    """
+1. Encrypt
+2. Decrypt
+    
+Input answer: """
 
     # Prompt user for encrypting option
     print("Would you like to encrypt or decrypt a message?")
-    Encryption_Tool = input("Type either 'encrypt' or 'decrypt' :")
 
     # Request message and encryption key for main computational program.
+    try:
+        Encryption_Tool = int(input(Option_Menu))
+    except ValueError:
+        Encryption_Tool = 3
+
     try:
         text = input("Message: ")
     except ValueError:
@@ -59,10 +63,13 @@ def User_Interface():
 
     return Encryption_Tool, text, custom_key
 
+
+### Processing
 def vigenere(message, key, direction=1):
     key_index = 0
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     processed_text = ''
+    key = key.lower()
 
     for char in message.lower():
 
@@ -88,23 +95,19 @@ def encrypt(message, key):
 def decrypt(message, key):
     return vigenere(message, key, -1)
 
+### Output
 def Main():
 
     Encryption_Tool, text, custom_key = User_Interface()
 
-    # Final Output Message should include option selected, text, and custom key
-    Final_Output_Message = """
-    
-    """
-
-    if Encryption_Tool == "encrypt":
+    if Encryption_Tool == 1:
         Encrypted_Text = encrypt(text, custom_key)
-        print(f'\nEncrypted text: {Encrypted_Text}')
-        print(f'Custom Key: {custom_key}')
-    elif Encryption_Tool == "decrypt":
+        print(f'Option: Encryption\nEncrypted text: {Encrypted_Text}\nCustom Key: {custom_key}')
+    elif Encryption_Tool == 2:
         decryption = decrypt(text, custom_key)
-        print(f'\nDecrypted text: {decryption}\n')
-        print(f'Custom Key: {custom_key}')
+        print(f'Option: Decryption\nDecrypted text: {decryption}\nCustom Key: {custom_key}')
+    elif Encryption_Tool == 3:
+        print("User did not input the right selection option.")
 
 #Output
 Main()
